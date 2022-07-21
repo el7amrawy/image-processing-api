@@ -33,6 +33,7 @@ async function resizeImage(imageName: string, width: number, height: number) {
 /* ======================================================== */
 routes.get("/", (req, res) => {
   if (
+    req.query.imgName == undefined ||
     !fs.existsSync(
       path.join(
         appRoot,
@@ -41,7 +42,6 @@ routes.get("/", (req, res) => {
         req.query.imgName as unknown as string
       )
     ) ||
-    req.query.imgName == undefined ||
     req.query.imgName?.length == 0 ||
     req.query.width?.length == 0 ||
     req.query.height?.length == 0
