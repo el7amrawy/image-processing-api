@@ -19,7 +19,7 @@ npm run build
 runnig server
 
 ```bash
-nodemon ./dist/index.js
+npx nodemon ./dist/index.js
 ```
 
 ## How to use
@@ -44,6 +44,12 @@ http://localhost:3000/api/img?imgName=[name of the image].jpg&width=[width]&heig
 
 ```bash
   npm run test
+```
+
+## linting
+
+```bash
+  npm run lint
 ```
 
 ## Dependencies

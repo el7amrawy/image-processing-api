@@ -1,8 +1,8 @@
-import express from 'express';
-import { routes } from './api/index';
+import express from "express";
+import { routes } from "./api/index";
 //
 const app = express();
-app.use('/api/img', routes);
+app.use("/api/img", routes);
 /* --------------------- */
 const port = 3000;
 app.listen(port, () => {

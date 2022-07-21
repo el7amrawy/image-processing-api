@@ -1,7 +1,13 @@
 {
   "root": true,
   "plugins": ["prettier"],
-  "extends": ["eslint:recommended", "prettier"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
+  "parser": "",
   "rules": {
     "prettier/prettier": 2,
     "no-use-before-define": ["error", { "functions": true, "classes": true }],
@@ -9,11 +15,12 @@
     "prefer-const": "error"
   },
   "parserOptions": {
-    "ecmaVersion": "latest",
+    "ecmaVersion": 2022,
     "sourceType": "module"
   },
   "env": {
     "node": true,
-    "es6": true
+    "es6": false,
+    "jasmine": true
   }
 }
