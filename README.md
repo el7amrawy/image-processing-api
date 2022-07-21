@@ -2,7 +2,7 @@
 
 Image processing API that resizes images
 
-## setting up the server
+## Setting up the server
 
 insatall
 
