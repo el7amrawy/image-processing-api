@@ -2,14 +2,24 @@
 
 Image processing API that resizes images
 
-## installation & starting the server
+## setting up the server
+
+insatall
 
 ```bash
 npm i
 ```
 
+build
+
 ```bash
-npm start
+npm run build
+```
+
+runnig server
+
+```bash
+nodemon ./dist/index.js
 ```
 
 ## How to use
