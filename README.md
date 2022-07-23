@@ -55,5 +55,4 @@ http://localhost:3000/api/img?imgName=[name of the image].jpg&width=[width]&heig
 ## Dependencies
 
 - express
-- nodemon
 - sharp
