@@ -1,5 +1,5 @@
 import express from "express";
-import { routes } from "./api/index";
+import routes from "./api/.";
 //
 const app = express();
 app.use("/api/img", routes);

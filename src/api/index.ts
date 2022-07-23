@@ -1,39 +1,15 @@
 import express from "express";
-import sharp from "sharp";
 import path from "path";
 import fs from "fs";
+import resizeImage from "../utilities/resizeImage";
 //
 const routes = express.Router();
-const fsPromises = fs.promises;
 const appRoot = path.resolve();
 /* ======================================================== */
-async function resizeImage(imageName: string, width: number, height: number) {
-  if (!fs.existsSync(path.join("assets", "resized"))) {
-    fsPromises.mkdir(path.join("assets", "resized"));
-  }
-  const outPath = path.join(
-    "assets",
-    "resized",
-    `resized-w${width}-h${height}-${imageName}`
-  );
-  if (fs.existsSync(outPath)) {
-    return path.join(appRoot, outPath);
-  }
-  await sharp(path.join("assets", "full", imageName))
-    .resize(height, width)
-    .toFile(outPath)
-    .then((info) => {
-      console.log("Image resized successfully\n", info);
-    })
-    .catch((err) => {
-      throw err;
-    });
-  return path.join(appRoot, outPath);
-}
-/* ======================================================== */
 routes.get("/", (req, res) => {
-  if (
-    req.query.imgName == undefined ||
+  if (req.query.imgName == undefined) {
+    res.send(`<script>alert('please pass the image name')</script>`);
+  } else if (
     !fs.existsSync(
       path.join(
         appRoot,
@@ -41,20 +17,37 @@ routes.get("/", (req, res) => {
         "full",
         req.query.imgName as unknown as string
       )
-    ) ||
-    req.query.imgName?.length == 0 ||
-    req.query.width?.length == 0 ||
-    req.query.height?.length == 0
+    )
   ) {
-    res.send("wrong input");
+    res.send(`<script>alert("file doesn't exit")</script>`);
+  } else if (req.query.width == undefined || req.query.width == "") {
+    res.send(`<script>alert('please enter the width')</script>`);
+  } else if (isNaN(parseInt(req.query.width as unknown as string))) {
+    res.send(`<script>alert('please enter a valid width number')</script>`);
+  } else if (parseInt(req.query.width as unknown as string) <= 0) {
+    res.send(`<script>alert('please enter a positive width')</script>`);
+  } else if (req.query.height == undefined || req.query.height == "") {
+    res.send(`<script>alert('please enter the height')</script>`);
+  } else if (isNaN(parseInt(req.query.height as unknown as string))) {
+    res.send(`<script>alert('please enter a valid height')</script>`);
+  } else if (parseInt(req.query.height as unknown as string) <= 0) {
+    res.send(`<script>alert('please enter a positive height')</script>`);
   } else {
-    const imgName = req.query.imgName as unknown as string;
-    const w = parseInt(req.query.width as unknown as string);
-    const h = parseInt(req.query.height as unknown as string);
-    resizeImage(imgName, w, h).then((imgPath) => {
-      res.sendFile(imgPath);
-    });
+    resizeImage(
+      req.query.imgName as unknown as string,
+      parseInt(req.query.width as unknown as string),
+      parseInt(req.query.height as unknown as string)
+    )
+      .then((path) => {
+        res.sendFile(path);
+      })
+      .catch((err) => {
+        if (err) {
+          console.log(err);
+          res.send(err);
+        }
+      });
   }
 });
 //
-export { routes, resizeImage };
+export default routes;
