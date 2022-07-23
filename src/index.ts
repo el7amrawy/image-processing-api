@@ -1,7 +1,7 @@
 import express from "express";
 import routes from "./api/.";
 //
-const app = express();
+const app: express.Application = express();
 app.use("/api/img", routes);
 /* --------------------- */
 const port = 3000;

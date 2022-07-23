@@ -6,7 +6,7 @@ import resizeImage from "../utilities/resizeImage";
 const routes = express.Router();
 const appRoot = path.resolve();
 /* ======================================================== */
-routes.get("/", (req, res) => {
+routes.get("/", (req: express.Request, res: express.Response): void => {
   if (req.query.imgName == undefined) {
     res.send(`<script>alert('please pass the image name')</script>`);
   } else if (
