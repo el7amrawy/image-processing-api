@@ -19,7 +19,7 @@ npm run build
 runnig server
 
 ```bash
-npx nodemon ./dist/.
+node ./dist/.
 ```
 
 ## How to use
